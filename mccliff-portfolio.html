@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>McCliff Metellus — Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ── TOKENS ─────────────────────────────────────────────── */
+  :root {
+    --bg:        #0d0f14;
+    --surface:   #13161e;
+    --surface2:  #1a1e29;
+    --border:    rgba(255,255,255,0.07);
+    --accent:    #4f8cff;
+    --accent2:   #a78bfa;
+    --text:      #e8eaf0;
+    --muted:     #7b82a0;
+    --white:     #ffffff;
+    --ff-display: 'DM Serif Display', Georgia, serif;
+    --ff-body:    'DM Sans', system-ui, sans-serif;
+    --ff-mono:    'JetBrains Mono', monospace;
+    --ease:       cubic-bezier(.4,0,.2,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--ff-body);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ─────────────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    height: 60px;
+    background: rgba(13,15,20,.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--ff-mono);
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .04em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: .04em;
+    transition: color .2s var(--ease);
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-links a.active { color: var(--accent); }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    padding: 6rem 2rem 4rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--ff-mono);
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: .75rem;
+  }
+  .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--accent);
+    opacity: .5;
+  }
+
+  .hero h1 {
+    font-family: var(--ff-display);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.12;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+  }
+
+  /* ── DIVIDER ─────────────────────────────────────────────── */
+  .divider {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── GRID ────────────────────────────────────────────────── */
+  .projects-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  .section-label {
+    font-family: var(--ff-mono);
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  /* ── CARD ────────────────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .25s var(--ease);
+  }
+  .card:hover { background: var(--surface2); }
+
+  .card-img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+  }
+
+  .card-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .55s var(--ease), filter .55s var(--ease);
+    filter: brightness(.85) saturate(.9);
+  }
+  .card:hover .card-img-wrap img {
+    transform: scale(1.04);
+    filter: brightness(1) saturate(1);
+  }
+
+  /* accent line that slides in on hover */
+  .card-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,15,20,.7) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* shimmer overlay on hover */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(79,140,255,.04), transparent);
+    transition: left .55s var(--ease);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .card:hover::before { left: 130%; }
+
+  .card-body {
+    padding: 1.4rem 1.5rem 1.6rem;
+    display: flex; flex-direction: column; gap: .5rem;
+    flex: 1;
+  }
+
+  .card-tag {
+    font-family: var(--ff-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .card-title {
+    font-family: var(--ff-display);
+    font-size: 1.2rem;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: .875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .card-arrow {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-family: var(--ff-mono);
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: .75rem;
+    transition: gap .2s var(--ease);
+    text-decoration: none;
+  }
+  .card:hover .card-arrow { gap: .7rem; }
+  .card-arrow::after { content: '→'; }
+
+  /* ── FEATURED (first card spans 2 cols) ─────────────────── */
+  @media (min-width: 700px) {
+    .card.featured {
+      grid-column: span 2;
+    }
+    .card.featured { flex-direction: row; }
+    .card.featured .card-img-wrap {
+      width: 55%;
+      aspect-ratio: auto;
+      flex-shrink: 0;
+    }
+    .card.featured .card-body { padding: 2.5rem 2rem; justify-content: center; }
+    .card.featured .card-title { font-size: 1.7rem; }
+    .card.featured .card-desc { font-size: .95rem; max-width: 360px; }
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--ff-mono);
+    font-size: .75rem;
+    color: var(--muted);
+    letter-spacing: .06em;
+  }
+
+  /* ── MOTION SAFETY ───────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .card-img-wrap img, .card::before, .card-arrow { transition: none; }
+  }
+
+  /* ── MOBILE NAV CONDENSED ────────────────────────────────── */
+  @media (max-width: 540px) {
+    .nav-links { gap: 1rem; }
+    .hero { padding: 4rem 1.25rem 2.5rem; }
+    .projects-section { padding: 2rem 1.25rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">MM.portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Resume</a></li>
+    <li><a href="#" class="active">Projects</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-eyebrow">Engineering Portfolio</div>
+  <h1>Projects that bridge<br><em>design & engineering</em></h1>
+  <p>In every project, I strive to blend creativity with technical expertise — applying engineering principles, CAD and simulation tools, and iterative design to solve real-world problems.</p>
+</header>
+
+<div class="divider"></div>
+
+<!-- PROJECT GRID -->
+<section class="projects-section">
+  <div class="section-label">Selected Work · 7 Projects</div>
+
+  <div class="grid">
+
+    <!-- FEATURED: Robot Project -->
+    <a class="card featured"
+       href="https://sites.google.com/view/mccliff-portfolio/project-page/vex-robot-project"
+       target="_blank">
+      <div class="card-img-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/sitesv/AA5AbUDU7C3Rnr3BvqXBeZL03LTfb73tMysOivkW42CKo8p8IedWGFeUdP97E2-ZvOkSrvOtAXasxQX5Rg_MiOQ2Yz2_3qCkBOSk9gp-Y8ZVg2O9s27k0hWbix-l7HZd7Zw7bgxkOE2IgDMTjmWHOGOP2sWIUGtGt6NI2RsVpiKDj8LkcO10Aq3XYMRW73VkL1MR-tKBtOPwFoT__9ax3k1SVMGqUbGoUnpnpyVSZBnUsIA=w1280"
+          alt="VEX Robot Project" loading="eager" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Robotics · Mechanical</span>
+        <h2 class="card-title">VEX Robot Project</h2>
+        <p class="card-desc">A fully engineered competition robot built from the ground up — integrating mechanical design, control systems, and strategic programming for VEX Robotics competition.</p>
+        <span class="card-arrow">View project</span>
+      </div>
+    </a>
+
+    <!-- Piezoelectric Flashlight -->
+    <a class="card"
+       href="https://sites.google.com/view/mccliff-portfolio/project-page/piezoelectric-flashlight"
+       target="_blank">
+      <div class="card-img-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/sitesv/AA5AbUC9A-XtHcXFPODMkM3zvqPs4iB4Y3yZOembK9ydDTt8vTJeGqMxqxl6cvQBVYs2iSoO3dSZjaz9hWhpWJhHeCDubZWF1sA73LHnrzSXYjBwzKzxjLOwzcq7eiwQhNDiS1BA_bBBz89KIU9-o55ogd7anvUQuG-tDhr0v7yo1S60CXWaXLTrPZlTf1fE3xEX5PkLYRd-Az-7kRyux8BcowgCTvhOC2Ay3FZWdIaw=w1280"
+          alt="Piezoelectric Flashlight" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Electronics · Energy</span>
+        <h2 class="card-title">Piezoelectric Flashlight</h2>
+        <p class="card-desc">A self-powered flashlight that harvests mechanical energy through piezoelectric transducers, converting kinetic input into usable electrical energy.</p>
+        <span class="card-arrow">View project</span>
+      </div>
+    </a>
+
+    <!-- Load Cell -->
+    <a class="card"
+       href="https://sites.google.com/view/mccliff-portfolio/project-page/load-cell"
+       target="_blank">
+      <div class="card-img-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/sitesv/AA5AbUA4AprZOsSS4C2qA_N1cpA3pooe0wWh7rqGy2D5bnYa_GqV_K5UC09uZHRnvWhdl2uhqtMIxEcIoEtjn9lIks5WTJLIBbCXx0hxSuJFiqNQoTQUE6o5muYb4JalVpgtB_ICFLhbPjy6EHMf1PVf6QdTrpdCpNUOlhbu_GtSPaSEUDuZqI_ma7PoFcNskN0jDKHMlOeu0Ik0S3EtLOZ-aKNmDW8oXbLhPx23-Jyg87Q=w1280"
+          alt="Load Cell" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Instrumentation · Testing</span>
+        <h2 class="card-title">Load Cell</h2>
+        <p class="card-desc">Design and calibration of a precision load cell for force measurement, applying strain gauge principles and signal conditioning circuits.</p>
+        <span class="card-arrow">View project</span>
+      </div>
+    </a>
+
+    <!-- Olympus CAD -->
+    <a class="card"
+       href="https://sites.google.com/view/mccliff-portfolio/project-page/olympus-om-1-cad-model"
+       target="_blank">
+      <div class="card-img-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/sitesv/AA5AbUA_bFkL1TsNMYubXkd7YKoDTLkvLvDTH37UGKOmbtVTuJGTEmfuFBVvv2v6NgM5Dp8y3e7FPOzqYOrDNDW8oTrBeS7u_aJ2IhcwjmfaBLhi2EFbS66NM1PMt4wH87gtSOKwik-YrFJP2bj6nS8OyQMw7zorJWlB-yAtQhOefX_e1t0CQ-vunsC7bnWiT6UI1FKg41Gr_ZTybDMi0l7pT3X25h9sx9ZSbZHtTXEA=w1280"
+          alt="Olympus OM-1 CAD Model" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag">CAD · Reverse Engineering</span>
+        <h2 class="card-title">Olympus OM-1 CAD Replica</h2>
+        <p class="card-desc">A detailed CAD reproduction of the classic Olympus OM-1 film camera, recreating complex curved surfaces and mechanical assemblies in 3D modelling software.</p>
+        <span class="card-arrow">View project</span>
+      </div>
+    </a>
+
+    <!-- Robot CAD -->
+    <a class="card"
+       href="https://sites.google.com/view/mccliff-portfolio/project-page/cad-model-of-vex-robot"
+       target="_blank">
+      <div class="card-img-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/sitesv/AA5AbUBwJsXHvZYVk_AYKh2pSnddS-TK5Xy1frya_1blI8gbePgvozW1T1gDlH2EwprjiYKwHJpszT6wTW2kAVhNMhCeig0Erz6yKEsFtBWwrjhJ-O76Mmkv80EtopVPU39ve0-CUSKU6unAI4KZRk4WxaIfGKHR-md_vy4u-GaGHslRy8m5R0kkhct3uYiD3WXuiyzn3kiUXdDhywsVceZsgUXTMXDcjjSeBYbYSkLoI-o=w1280"
+          alt="CAD Model of VEX Robot" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag">CAD · Robotics</span>
+        <h2 class="card-title">VEX Robot CAD Replica</h2>
+        <p class="card-desc">Full-assembly CAD model of the VEX competition robot — documenting every subsystem digitally for design iteration, documentation, and presentation.</p>
+        <span class="card-arrow">View project</span>
+      </div>
+    </a>
+
+    <!-- Chess Board CAD -->
+    <a class="card"
+       href="https://sites.google.com/view/mccliff-portfolio/project-page/chess-board-cad"
+       target="_blank">
+      <div class="card-img-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/sitesv/AA5AbUB-D4CpdlGYb-YANB7pBh4cG6EC87jHwMen98YmgAHcYztms0NZE3AqpG_XVrW1EgqvQ59sltMWA25VjWM-t72oaoxW2UOkjT-JAkj9SIAvYLe9K3pQ6ny4mIjDC7NKYbq7G9PjGpdywrRcFSGs6VRmDWDvQwWhG18vSCFopnZaeSvGyqmucPHcGEXJ4FQPjZlbdzEgeLuvMYJlZKtQWh6rZfzS0zAGAH39besc=w1280"
+          alt="Chess Board CAD" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag">CAD · Product Design</span>
+        <h2 class="card-title">Chess Board CAD</h2>
+        <p class="card-desc">Precision CAD model of a chess board and pieces — exploring parametric design, material simulation, and aesthetic detail in a consumer product context.</p>
+        <span class="card-arrow">View project</span>
+      </div>
+    </a>
+
+    <!-- Biokinematic Analysis -->
+    <a class="card"
+       href="https://sites.google.com/view/mccliff-portfolio/project-page/biokinematic-analysis-of-baseball-swings"
+       target="_blank">
+      <div class="card-img-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/sitesv/AA5AbUC1sCCzY08xRYHwKDgL2sg636PE_B5IMFQYcRT3PaqXHReF4ZQoLjbUuGbGQ4cPrWxTY1aLIp7o3qW2_XsNAoIIV-TkL4L55gl8LPkbhM6vFQFGIbgcHGBULMZeOB2ZolKWcXn-A0b2M8v3DB1r_hhwMBaoLoGYw1PDfvR2ql71G5BkQoOkdItXhTlP3nQdJfCUp32KgerwuvvdJGdswe3mi__Ql7y53_63XkV9Kkc=w1280"
+          alt="Biokinematic Analysis of Baseball Swings" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Biomechanics · Analysis</span>
+        <h2 class="card-title">Biokinematic Analysis of Baseball Swings</h2>
+        <p class="card-desc">Motion capture and kinematic analysis of baseball swing mechanics — applying biomechanical principles to identify performance patterns and injury risk factors.</p>
+        <span class="card-arrow">View project</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  © 2024 McCliff Metellus &nbsp;·&nbsp; Engineering Portfolio &nbsp;·&nbsp; All rights reserved
+</footer>
+
+</body>
+</html>
